@@ -36,6 +36,21 @@ class ProductController extends Controller
 
     public function register(Request $request){
         // 処理の内容
+        return [
+            'user_name' => 'required',
+            'email' => 'required',
+            'user_password' => [
+                'required',
+                'min:8',
+                'max:16'
+            ],
+
+            'comfirm_password' => [
+                'required',
+                'same:user_password'
+            ],
+        ];
+
     }
 
     public function update(Request $update){

@@ -30,5 +30,5 @@ Route::get('/search', 'ProductController@search')->name('search');
 
 
 
-// Route::post('/register', 'ProductController@register')->name('register');
+Route::post('/register', 'ProductController@register')->name('register');
 // Route::post('/update', 'ProductController@update')->name('update');
