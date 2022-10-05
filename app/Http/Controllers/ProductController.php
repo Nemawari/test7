@@ -45,7 +45,7 @@ class ProductController extends Controller
                 'max:16'
             ],
 
-            'comfirm_password' => [
+            'confirm_password' => [
                 'required',
                 'same:user_password'
             ],
