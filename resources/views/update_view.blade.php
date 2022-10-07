@@ -42,7 +42,7 @@
                     </tr>
                 </table>
             </form>
-        <input type="submit" value="更新">
-        <input type="submit" value="戻る">
+        <button type="submit">編集する</button>
+        <button type="submit">更新する</button><a hrfe="" {{ }}></a>
 </body>
 </html>

@@ -7,16 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+    
     <h1>商品情報詳細画面{{$product_id}}</h1>
-
-    <p>商品情報ID</p>
-    <p>商品画像</p>
-    <p>商品名</p>
-    <p>メーカー</p>
-    <p>価格</p>
-    <p>在庫数</p>
-    <p>コメント</p>
-
-    <input type="submit" value="編集ボタン"><a href="{{route('update' , ['id' => $product_id])}}"></a> 
-    <input type="submit" value="戻る"><a></a>
+     @foreach ($products as $product)
+        <p>商品情報ID,{{ $product_id }}</p>
+        <p>商品画像,{{ $img }}</p>
+        <p>商品名,{{ $name }}</p>
+        <p>メーカー,{{ $company}}</p>
+        <p>価格,{{ $price }}</p>
+        <p>在庫数,{{ $stock }}</p>
+        <p>コメント,{{ $comment }}</p>
+     @endforeach
+    <button type="submit">編集する</button><a href="{{route('update' , ['id' => $product_id])}}"></a> 
+    <button type="submit">戻る</button><a></a>
 </html>

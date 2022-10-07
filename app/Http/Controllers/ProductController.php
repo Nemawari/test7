@@ -26,7 +26,16 @@ class ProductController extends Controller
     }
 
     public function showDetail($id){
-        return view('detail_view',['product_id' => $id]);
+        return view('detail_view',[
+            $id => 'product_id',
+            $img => 'img_path' ,
+            $name => 'product_name',
+            $company => 'company_id',
+            $price => 'price',
+            $stock => 'stock',
+            $comment => 'comment',
+
+        ]);
     }
 
     public function showUpdate($id){
