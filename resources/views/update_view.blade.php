@@ -18,9 +18,9 @@
                     <tr>
                         <th>メーカー</th>
                         <td><select name="update" required>
-                                <option value="1"></option>
-                                <option value="2"></option>
-                                <option value="3"></option>
+                                <option value="1">コーラ</option>
+                                <option value="2">お茶</option>
+                                <option value="3">水</option>
                             </select>
                         </td>
                     </tr>
@@ -42,7 +42,8 @@
                     </tr>
                 </table>
             </form>
-        <button type="submit">編集する</button>
-        <button type="submit">更新する</button><a hrfe="" {{ }}></a>
+            <form action="{{route('product_update')}}">
+                <button type="submit">更新する</button>
+            </form>
 </body>
 </html>

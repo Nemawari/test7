@@ -26,14 +26,15 @@ class ProductController extends Controller
     }
 
     public function showDetail($id){
+        $product=Product::find($id);
         return view('detail_view',[
-            $id => 'product_id',
-            $img => 'img_path' ,
-            $name => 'product_name',
-            $company => 'company_id',
-            $price => 'price',
-            $stock => 'stock',
-            $comment => 'comment',
+            'product_id' => $id, 
+            'img_path' => $product->img_path,
+            'product_name' => $product->product_name, 
+            'company_id' => $product->company_id, 
+            'price' => $product->price,
+            'stock' => $product->stock,
+            'comment'  => $product->comment,
 
         ]);
     }
@@ -45,20 +46,20 @@ class ProductController extends Controller
 
     public function register(Request $request){
         // 処理の内容
-        return [
-            'user_name' => 'required',
-            'email' => 'required',
-            'user_password' => [
-                'required',
-                'min:8',
-                'max:16'
-            ],
+        // return [
+        //     'user_name' => 'required',
+        //     'email' => 'required',
+        //     'user_password' => [
+        //         'required',
+        //         'min:8',
+        //         'max:16'
+        //     ],
 
-            'confirm_password' => [
-                'required',
-                'same:user_password'
-            ],
-        ];
+        //     'confirm_password' => [
+        //         'required',
+        //         'same:user_password'
+        //     ],
+        // ];
 
     }
 
