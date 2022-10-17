@@ -23,37 +23,49 @@
                 </div>
 
                 <div class="links">
+                <form action="{{route('search')}}" method="get">
+                    @csrf
                     <table>
                         <thead>
                             <tr>
                                 <th>商品名</th>
-                                <td><input type="text" name="name"></td>
-                            </tr>
-                            <tr>
                                 <th>メーカー名</th>
-                                <td><select>
-                                        <option value="1">コーラ</option>
-                                        <option value="2">お茶</option>
-                                        <option value="3">水</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="submit" value="検索"></td>
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- <select name="company">
+                              @foreach ($companies as $company)
+                                <option value="{{ $company->id }}">{{ $company->representative_name }}</option>
+                              @endforeach
+                            </select> -->
+                            <input type="text" name="item_name">
+                            <button type="submit">検索</button>
+                            @foreach ($products as $product)
+                                <p>{{ $product->product_name }}</p>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </form>
+                    <a href ="{{route('create')}}">新規登録</a>
+                    <a href ="{{route('detail',['id' => $product->id])}}">詳細編集</a>
+
+                    <script src="js/test">
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    @endsectionß
+
+                        <!-- <tbody>
                             @foreach ($products as $product)
                             <tr>
                                 <td>{{ $product->id }}</td>
                                 <td>{{ $product->title }}</td>
-                                <td><a href ="{{route('detail' , ['id' => $product->id])}}">詳細</a></td>
                             </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-
-                    <a href ="{{route('create')}}">新規登録</a>
+                            <td><a href ="{{route('detail' , ['id' => $product->id])}}">詳細</a></td>
+                        </tbody> -->
 
                     <!-- <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
@@ -66,8 +78,4 @@
 
 
 
-                </div>
-            </div>
-        </div>
-    @endsection
 

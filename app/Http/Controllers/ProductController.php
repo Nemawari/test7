@@ -4,23 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Company;
 
 class ProductController extends Controller
 {
     public function showList() {
 
-
         // if{}
-        // // searchだったらの内容
+        // // searchだったらの内容 ('list_view',['companies_blade' => $companies]);
 
-        return view('list_view',['products' => Product::all()]);
+        return view('list_view',[
+            'companies' => Company::all(),
+            'products' => Product::all()
+        ]);
     }
     
-    // public function search(){
-    //     return view
-    // }
+    // 検索　
+    public function search(Request $request){
+        $keyword = $request->input('item_name');
+        
+        return view('list_view',[
+            'companies' => Company::all(),
+            'products' => Product::where('product_name','like',"%$keyword%")->get()
+        ]);
+    }
+
     
-    //
+    
     public function showCreate(){
         return view('create_view');
     }
@@ -35,35 +45,31 @@ class ProductController extends Controller
             'price' => $product->price,
             'stock' => $product->stock,
             'comment'  => $product->comment,
-
+            
         ]);
     }
-
+    
     public function showUpdate($id){
-        return view('update_view');
-    } 
 
-
-    public function register(Request $request){
-        // 処理の内容
-        // return [
-        //     'user_name' => 'required',
-        //     'email' => 'required',
-        //     'user_password' => [
-        //         'required',
-        //         'min:8',
-        //         'max:16'
-        //     ],
-
-        //     'confirm_password' => [
-        //         'required',
-        //         'same:user_password'
-        //     ],
-        // ];
-
+        return view('update_view',[
+            'product' => Product::find($id),
+            
+        ]);
     }
-
+    
+    // 更新ボタン
     public function update(Request $update){
-        // 処理の内容
+        $company = Company::all();
+
+        // $update[
+        // 'id'=>$request->id,
+        // 'company'=>$request->company_name,
+        // 'street_address'=>$request->street_address,
+        // 'representative_name'=>$request->representative_name,
+        // ]
+        // return redirect("/update");
+        
     }
+    
+
 };

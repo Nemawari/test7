@@ -18,9 +18,9 @@
         <p>在庫数,{{ $stock }}</p>
         <p>コメント,{{ $comment }}</p>
      
-    <form action="{{route('update',['id' => $product_id])}}">
-        <button type="submit">編集する</button><a href="{{route('update' , ['id' => $product_id])}}"></a> 
-    </form>
+    <!-- <form action="{{route('product_update',['id' => $product_id])}}"> -->
+       <a href="{{route('update' , ['id' => $product_id])}}">編集する</a> 
+    <!-- </form> -->
     <form action="{{route('list')}}">
         <button type="submit">戻る</button><a></a>
     </form>

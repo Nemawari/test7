@@ -9,11 +9,12 @@
 <body>
     <h1>商品情報編集画面</h1>
         <p>商品情報ID</p>
-            <form>
+            <form action="{{route('product_update')}}" method="POST">
+                @csrf
                 <table>
                     <tr>
                         <th>商品名</th>
-                        <td><input type="text" name="name" required></td>
+                        <td><input type="text" name="name" value="{{$product->product_name}}" required></td>
                     </tr>
                     <tr>
                         <th>メーカー</th>
@@ -26,24 +27,24 @@
                     </tr>
                     <tr>
                         <th>価格</th>
-                        <td><input type="text" name="price" required></td>
+                        <td><input type="text" name="price" value="{{$product->price}}" required></td>
                     </tr>
                     <tr>
                         <th>在庫</th>
-                        <td><input type="text" name="stock" required></td>
+                        <td><input type="text" name="stock" value="{{$product->stock}}"required></td>
                     </tr>
                     <tr>
                         <th>コメント</th>
-                        <td><textarea name="comment"></textarea></td>
+                        <td><textarea name="comment" value="{{$product->comment}}"></textarea></td>
                     </tr>
                     <tr>
                         <th>商品画像</th>
                         <td><input type="file" name="file"></td>
                     </tr>
                 </table>
-            </form>
-            <form action="{{route('product_update')}}">
-                <button type="submit">更新する</button>
+
+                    <button type="button" onclick="{{}}">更新する</button>
+                
             </form>
 </body>
 </html>

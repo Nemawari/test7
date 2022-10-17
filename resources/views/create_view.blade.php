@@ -39,7 +39,7 @@
                 <td><input type="file" id="" name="" accept=""></td>
             </tr>
         </table>
-            <button type="button">更新</button>
+            <button type="button">登録</button>
             <button type="button" onClick="history.back()">戻る</button>
     </form>
     
