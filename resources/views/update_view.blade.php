@@ -43,7 +43,7 @@
                     </tr>
                 </table>
 
-                    <button type="button" onclick="{{}}">更新する</button>
+                    <button type="submit" onclick="{{}}">更新する</button>
                 
             </form>
 </body>

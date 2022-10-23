@@ -1,5 +1,5 @@
 
-    @extends('layouts.app')
+    @extends('layouts.products')
 
     @section('content')
         <div class="flex-center position-ref full-height">
@@ -23,7 +23,6 @@
                 </div>
 
                 <div class="links">
-                <form action="{{route('search')}}" method="get">
                     @csrf
                     <table>
                         <thead>
@@ -31,51 +30,44 @@
                                 <th>商品名</th>
                                 <th>メーカー名</th>
                             </tr>
+                            @foreach ($products as $product)
+                            <tr>
+                                <td>{{ $product->product_name }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->stock }}</td>
+                                <td><button type="button" onClick="location.href='{{route('detail',['id' => $product->id])}}'">詳細編集</button></td>
+                                <td>
+                                <form method="post" action="{{route('delete',['id' => $product->id])}}" onsubmit="check()">
+                                    @csrf
+                                    <button type="submit">削除</button>
+                                </form>
+                                </td>
+                            </tr>
+                            @endforeach
                         </thead>
                         <tbody>
-                            <!-- <select name="company">
-                              @foreach ($companies as $company)
+                            <select name="company">
+                                @foreach ($companies as $company)
                                 <option value="{{ $company->id }}">{{ $company->representative_name }}</option>
-                              @endforeach
-                            </select> -->
-                            <input type="text" name="item_name">
-                            <button type="submit">検索</button>
-                            @foreach ($products as $product)
-                                <p>{{ $product->product_name }}</p>
-                            @endforeach
+                                @endforeach
+                            </select>
+                            <form action="{{route('search')}}" method="get">
+                                    <input type="text" name="item_name">
+                                    <button type="submit">検索</button>
+                                @foreach ($products as $product)
+                                    <p>{{ $product->product_name }}</p>
+                                @endforeach
+                            </form>
                         </tbody>
                     </table>
-                </form>
+                    
+
                     <a href ="{{route('create')}}">新規登録</a>
-                    <a href ="{{route('detail',['id' => $product->id])}}">詳細編集</a>
-
-                    <script src="js/test">
-
-                    </script>
+                    
                 </div>
             </div>
         </div>
-    @endsectionß
+            
+    @endsection
 
-                        <!-- <tbody>
-                            @foreach ($products as $product)
-                            <tr>
-                                <td>{{ $product->id }}</td>
-                                <td>{{ $product->title }}</td>
-                            </tr>
-                            @endforeach
-                            <td><a href ="{{route('detail' , ['id' => $product->id])}}">詳細</a></td>
-                        </tbody> -->
-
-                    <!-- <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a> -->
-
-
-
-
+                       

@@ -31,26 +31,23 @@ class ProductController extends Controller
 
     
     
+    
     public function showCreate(){
         return view('create_view');
     }
-
+    
     public function showDetail($id){
         $product=Product::find($id);
-        return view('detail_view',[
-            'product_id' => $id, 
-            'img_path' => $product->img_path,
-            'product_name' => $product->product_name, 
-            'company_id' => $product->company_id, 
-            'price' => $product->price,
-            'stock' => $product->stock,
-            'comment'  => $product->comment,
-            
-        ]);
+        // dd($product);
+        return view('detail_view',
+        [
+            'product' => $product
+            ]
+        );
     }
     
     public function showUpdate($id){
-
+        
         return view('update_view',[
             'product' => Product::find($id),
             
@@ -60,16 +57,22 @@ class ProductController extends Controller
     // 更新ボタン
     public function update(Request $update){
         $company = Company::all();
-
-        // $update[
-        // 'id'=>$request->id,
-        // 'company'=>$request->company_name,
-        // 'street_address'=>$request->street_address,
-        // 'representative_name'=>$request->representative_name,
-        // ]
-        // return redirect("/update");
         
+        // $update[
+            // 'id'=>$request->id,
+            // 'company'=>$request->company_name,
+            // 'street_address'=>$request->street_address,
+            // 'representative_name'=>$request->representative_name,
+            // ]
+            // return redirect("/update");
+            
     }
-    
-
+        
+        // 削除ボタン
+        public function delete($id){
+            Product::where('id',$id)->delete();
+            
+            return redirect("/list");
+    }
+        
 };
