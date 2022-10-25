@@ -22,10 +22,14 @@ class ProductController extends Controller
     // 検索　
     public function search(Request $request){
         $keyword = $request->input('item_name');
+        $product = Product::where('product_name','like',"%$keyword%")->get();
+
+
+        dd($product);
         
         return view('list_view',[
             'companies' => Company::all(),
-            'products' => Product::where('product_name','like',"%$keyword%")->get()
+            'product' => $product
         ]);
     }
 
@@ -41,7 +45,14 @@ class ProductController extends Controller
         // dd($product);
         return view('detail_view',
         [
-            'product' => $product
+            'product' => $product,
+            'product_id' => $id,
+            'img_path' => optional($product)->img_path,
+            'product_name' => optional($product)->product_name,
+            'company_id' => optional($product)->company_id,
+            'price' => optional($product)->price,
+            'stock' => optional($product)->stock,
+            'comment' => optional($product)->comment
             ]
         );
     }

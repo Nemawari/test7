@@ -37,9 +37,9 @@
                                 <td>{{ $product->stock }}</td>
                                 <td><button type="button" onClick="location.href='{{route('detail',['id' => $product->id])}}'">詳細編集</button></td>
                                 <td>
-                                <form method="post" action="{{route('delete',['id' => $product->id])}}" onsubmit="check()">
+                                <form method="post" action="{{route('delete',['id' => $product->id])}}" >
                                     @csrf
-                                    <button type="submit">削除</button>
+                                    <button type="submit" onclick="return check()">削除</button>
                                 </form>
                                 </td>
                             </tr>
@@ -51,12 +51,12 @@
                                 <option value="{{ $company->id }}">{{ $company->representative_name }}</option>
                                 @endforeach
                             </select>
-                            <form action="{{route('search')}}" method="get">
+                            <form action="{{action('ProductController@search')}}" method="get">
                                     <input type="text" name="item_name">
                                     <button type="submit">検索</button>
-                                @foreach ($products as $product)
+                              {{-- @foreach ($products as $product)
                                     <p>{{ $product->product_name }}</p>
-                                @endforeach
+                                @endforeach --}} 
                             </form>
                         </tbody>
                     </table>

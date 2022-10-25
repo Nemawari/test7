@@ -39,7 +39,7 @@
                     </tr>
                     <tr>
                         <th>商品画像</th>
-                        <td><input type="file" name="file"></td>
+                        <td><input type="file" name="file" value="{{$product->img_path}}"></td>
                     </tr>
                 </table>
 

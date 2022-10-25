@@ -17,16 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/list', 'ProductController@showList')->name('list')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/list', 'ProductController@showList')->name('list')->middleware('auth');
+Route::get('/search', 'ProductController@search')->name('search')->middleware('auth');
 Route::get('/create', 'ProductController@showCreate')->name('create')->middleware('auth');
 Route::get('/{id}', 'ProductController@showDetail')->name('detail')->middleware('auth');
 Route::get('/detail/{id}/update', 'ProductController@showUpdate')->name('update')->middleware('auth');
-
-
-Route::get('/search', 'ProductController@search')->name('search')->middleware('auth');
 Route::get('/sort', 'ProductController@sort')->name('sort')->middleware('auth');
-
 
 
 Route::post('/product_register', 'ProductController@register')->name('product_register')->middleware('auth');
