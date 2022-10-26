@@ -9,7 +9,7 @@
 <body>
     <h1>商品情報編集画面</h1>
         <p>商品情報ID</p>
-            <form action="{{route('product_update')}}" method="POST">
+            <form action="{{route('product_update')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <table>
                     <tr>
