@@ -20,10 +20,9 @@
         <p>コメント,{{ optional($product)->comment }}</p>
      
     
-            <a href="{{route('product_update' , ['id' => $product_id])}}">編集する</a> 
+        <a href="{{route('update' , ['id' => $product_id])}}">編集する</a>
+
     <form action="{{route('list')}}" id="button" onSubmit="check()">
-    
-        
         <button type="submit">戻る</button><a></a>
     </form>
 </html>

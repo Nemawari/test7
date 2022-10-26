@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Company;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends Controller
 {
     public function showList() {
 
-        // if{}
-        // // searchだったらの内容 ('list_view',['companies_blade' => $companies]);
 
         return view('list_view',[
             'companies' => Company::all(),
@@ -21,19 +21,22 @@ class ProductController extends Controller
     
     // 検索　
     public function search(Request $request){
+       
         $keyword = $request->input('item_name');
+        // dd($keyword);
         $product = Product::where('product_name','like',"%$keyword%")->get();
 
-
-        dd($product);
-        
-        return view('list_view',[
-            'companies' => Company::all(),
-            'product' => $product
-        ]);
+        return redirect()->route('list')->with('products',$product);
     }
 
-    
+    // ソート機能
+    public function initialize(){
+        $form = Product::all()->orderBy('price','desc');
+        $form = Product::paginate(3);
+
+        return view('list_view',
+        ['products' => $form]);
+    }
     
     
     public function showCreate(){
@@ -68,15 +71,13 @@ class ProductController extends Controller
     // 更新ボタン
     public function update(Request $update){
         $company = Company::all();
-        
-        // $update[
-            // 'id'=>$request->id,
-            // 'company'=>$request->company_name,
-            // 'street_address'=>$request->street_address,
-            // 'representative_name'=>$request->representative_name,
-            // ]
-            // return redirect("/update");
-            
+        $date = Product::find($update->id);
+
+        if($update->has('img')){
+            // $data->img_path = $update->img->store('public/img');
+            Storage::put('file.jpg', $update->img);
+        } 
+       
     }
         
         // 削除ボタン

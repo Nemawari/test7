@@ -30,6 +30,8 @@
                                 <th>商品名</th>
                                 <th>メーカー名</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             @foreach ($products as $product)
                             <tr>
                                 <td>{{ $product->product_name }}</td>
@@ -44,26 +46,31 @@
                                 </td>
                             </tr>
                             @endforeach
-                        </thead>
-                        <tbody>
-                            <select name="company">
-                                @foreach ($companies as $company)
-                                <option value="{{ $company->id }}">{{ $company->representative_name }}</option>
-                                @endforeach
-                            </select>
-                            <form action="{{action('ProductController@search')}}" method="get">
-                                    <input type="text" name="item_name">
-                                    <button type="submit">検索</button>
-                              {{-- @foreach ($products as $product)
-                                    <p>{{ $product->product_name }}</p>
-                                @endforeach --}} 
-                            </form>
                         </tbody>
                     </table>
+                    <select name="company">
+                        @foreach ($companies as $company)
+                        <option value="{{ $company->id }}">{{ $company->representative_name }}</option>
+                        @endforeach
+                    </select>
+                    <form action="{{route('search')}}" method="get">
+                            <input type="text" name="item_name">
+                            <button type="submit">検索</button>
+                    @if(session('products'))
+                            @foreach (session('products') as $product)
+                                <p>{{ $product->product_name }}</p>
+                            @endforeach
+                    @else
+                            @foreach ($products as $product)
+                                <p>{{ $product->product_name }}</p>
+                            @endforeach
+                    
+                    @endif
+                    </form>
                     
 
                     <a href ="{{route('create')}}">新規登録</a>
-                    
+                  
                 </div>
             </div>
         </div>
