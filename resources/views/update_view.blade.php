@@ -19,9 +19,10 @@
                     <tr>
                         <th>メーカー</th>
                         <td><select name="update" required>
-                                <option value="1">コーラ</option>
-                                <option value="2">お茶</option>
-                                <option value="3">水</option>
+                            @foreach($companies as $company)
+                                <option value="{{ $company->id}}">{{ $company->representative_name }}</option>
+                            @endforeach
+                                
                             </select>
                         </td>
                     </tr>

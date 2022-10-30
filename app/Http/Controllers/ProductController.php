@@ -12,27 +12,44 @@ class ProductController extends Controller
 {
     public function showList() {
 
+        $test = new Product();
+        $test2 = new Company();
+
+        try{
+            $products = $test->getProducts();
+            $companies = $test2->getCompanies();
+        }catch(\Exception $e){
+            return ;
+        }
 
         return view('list_view',[
-            'companies' => Company::all(),
-            'products' => Product::all()
+            'companies' => $companies,
+            'products' => $products
         ]);
     }
     
     // 検索　
     public function search(Request $request){
-       
+        
+        $test3 = new Product();
         $keyword = $request->input('item_name');
-        // dd($keyword);
-        $product = Product::where('product_name','like',"%$keyword%")->get();
+
+        try{
+             $product = $test3->getSearchResult($keyword);
+        }catch(\Exception $e){
+            return ;
+        }
 
         return redirect()->route('list')->with('products',$product);
     }
 
     // ソート機能
     public function initialize(){
-        $form = Product::all()->orderBy('price','desc');
-        $form = Product::paginate(3);
+        try{
+              $form = Product::all()->orderBy('price','desc')->paginate(3);
+            }catch(\Exception $e){
+                return ;
+            }
 
         return view('list_view',
         ['products' => $form]);
@@ -40,12 +57,27 @@ class ProductController extends Controller
     
     
     public function showCreate(){
-        return view('create_view');
+        $test10 = new Company();
+
+        try{
+            $companies = $test10->getCompanies();
+        }catch(\Exception $e){
+            return ;
+        }
+
+        return view('create_view',['companies' => $companies]);
     }
     
+
     public function showDetail($id){
-        $product=Product::find($id);
-        // dd($product);
+        $test4 = new Product();
+        
+        try{
+            $product = $test4->getDetail($id);
+        }catch(\Exception $e){
+            return ;
+        }
+
         return view('detail_view',
         [
             'product' => $product,
@@ -61,30 +93,80 @@ class ProductController extends Controller
     }
     
     public function showUpdate($id){
+        $test5 = new Product();
+        $test11 = new Company();
         
+        try{
+            $product = $test5->getDetail($id);
+            $companies = $test11->getCompanies();
+        }catch(\Throwable $e){
+            throw new \Exception($e->getMessage());
+        }
+
         return view('update_view',[
-            'product' => Product::find($id),
-            
+            'product' => $product,
+            'companies' => $companies
         ]);
     }
     
     // 更新ボタン
     public function update(Request $update){
-        $company = Company::all();
-        $date = Product::find($update->id);
+        $test6 = new Product();
 
         if($update->has('img')){
-            // $data->img_path = $update->img->store('public/img');
             Storage::put('file.jpg', $update->img);
         } 
-       
+        return back();
+
+        try{
+            $product = $test6->getUpdate($id);
+        }catch(\Exception $e){
+            return ;
+        }
+
     }
         
         // 削除ボタン
-        public function delete($id){
-            Product::where('id',$id)->delete();
+    //     public function delete($id){
+    //         Product::where('id',$id)->delete();
             
-            return redirect("/list");
+    //         return redirect("/list");
+    // }
+        public function delete($id){
+            $test7 = new Product();
+
+            try{
+                $product = $test7->getDelete($id);
+            }catch(\Throwable $e){
+                throw new \Exception($e->getMessage());
+            }
+            
+            return back();
     }
         
+        //登録ボタン
+        public function store(Request $request){
+            $test8 = new Product();
+            $create = [];
+            $create['product_name']=$request->input('product_name');
+            $create['company_id']=$request->input('company_id');
+            $create['price']=$request->input('price');
+            $create['stock']=$request->input('stock');
+            $create['comment']=$request->input('comment');
+            $create['img_path']=$request->input('img_path');
+           
+                \DB::beginTransaction();
+
+            try{
+                $test8->getCreate($create);
+                
+                \DB::commit();
+            }catch(\Throwable $e){
+                throw new \Exception($e->getMessage());
+                \DB::rollBack();
+                
+            }
+            
+            return redirect(route('list'));
+        }
 };

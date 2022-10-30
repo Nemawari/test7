@@ -26,6 +26,6 @@ Route::get('/detail/{id}/update', 'ProductController@showUpdate')->name('update'
 Route::get('/sort', 'ProductController@sort')->name('sort')->middleware('auth');
 
 
-Route::post('/product_register', 'ProductController@register')->name('product_register')->middleware('auth');
+Route::post('/product_register', 'ProductController@store')->name('product_register')->middleware('auth');
 Route::post('/product_update', 'ProductController@update')->name('product_update')->middleware('auth');
 Route::post('/delete/{id}', 'ProductController@delete')->name('delete')->middleware('auth');
