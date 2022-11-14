@@ -55,7 +55,8 @@
                     </select>
                     <form action="{{route('search')}}" method="get">
                             <input type="text" name="item_name">
-                            <button type="submit">検索</button>
+                            <!-- submit切ってる -->
+                            <button type="button" onclick="search()">検索</button>
                     @if(session('products'))
                             @foreach (session('products') as $product)
                                 <p>{{ $product->product_name }}</p>

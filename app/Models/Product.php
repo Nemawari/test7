@@ -29,8 +29,7 @@ class Product extends Model
 
     //検索
     public function getSearchResult($keyword2){
-        $result = Product::where('product_name','like',"%$keyword2%")->get();
-
+        $result = Product::where('product_name','like',"%$keyword2%")->whereBetween('price',[500,1000])->get();
         return $result;
     }
 

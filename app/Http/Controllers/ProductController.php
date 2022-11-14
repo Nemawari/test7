@@ -33,6 +33,8 @@ class ProductController extends Controller
         
         $test3 = new Product();
         $keyword = $request->input('item_name');
+        $price = $request->input('miniprice');
+        // パラメーターごとに増やす
 
         try{
              $product = $test3->getSearchResult($keyword);
