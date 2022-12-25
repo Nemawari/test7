@@ -17,6 +17,7 @@ class ProductController extends Controller
 
         try{
             $products = $test->getProducts();
+                
             $companies = $test2->getCompanies();
         }catch(\Exception $e){
             return ;
@@ -33,6 +34,8 @@ class ProductController extends Controller
         
         $test3 = new Product();
         $keyword = $request->input('item_name');
+        // $price = $request->input('miniprice');
+        // パラメーターごとに増やす
 
         try{
              $product = $test3->getSearchResult($keyword);
@@ -45,14 +48,47 @@ class ProductController extends Controller
 
     // ソート機能
     public function initialize(){
+        // ステップ８
+            $test_forms = Products::all();
+            $test_forms = Products::sortable()->paginate(3);
         try{
               $form = Product::all()->orderBy('price','desc')->paginate(3);
             }catch(\Exception $e){
                 return ;
             }
 
-        return view('list_view',
-        ['products' => $form]);
+        return view('list_view',['products' => $test_forms]);
+        dd($test_forms);
+    }
+    // ajax_search用検索
+    public function ajax_search(Request $request){
+        // サーバーとつなげて考えるー＞ajax.js
+        $keyword = $request->input('search');
+        $para1 = $request->input('sort_ordered');
+        $para2 = $request->input('sort_col');
+
+        // price
+        $para3 = $request->input('price_up_ajax');
+        $para4 = $request->input('price_down_ajax');
+
+        // stock
+        $para5 = $request->input('stock_up_ajax');
+        $para6 = $request->input('stock_down_ajax');
+
+        $query=Product::where('product_name','like',"%$keyword%");
+        if($para3 != ""){
+            $query=$query->where('price', '<=', $para3);
+        }
+        if($para4 != ""){
+            $query=$query->where('price', '>=', $para4);
+        }
+        if($para5 != ""){
+            $query=$query->where('stock', '<=', $para5);
+        }
+        if($para6 != ""){
+            $query=$query->where('stock', '>=', $para6);
+        }
+        return ['products'=>$query->orderBy($para2, $para1)->get(),'keyword'=>$keyword];
     }
     
     
@@ -132,7 +168,7 @@ class ProductController extends Controller
             
     //         return redirect("/list");
     // }
-        public function delete($id){
+        public function product_delete($id){
             $test7 = new Product();
 
             try{
@@ -141,7 +177,7 @@ class ProductController extends Controller
                 throw new \Exception($e->getMessage());
             }
             
-            return back();
+            return [];
     }
         
         //登録ボタン

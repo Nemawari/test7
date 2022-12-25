@@ -48,28 +48,49 @@
                             @endforeach
                         </tbody>
                     </table>
+                  
                     <select name="company">
                         @foreach ($companies as $company)
                         <option value="{{ $company->id }}">{{ $company->representative_name }}</option>
                         @endforeach
                     </select>
-                    <form action="{{route('search')}}" method="get">
-                            <input type="text" name="item_name">
-                            <button type="submit">検索</button>
-                    @if(session('products'))
-                            @foreach (session('products') as $product)
-                                <p>{{ $product->product_name }}</p>
-                            @endforeach
-                    @else
-                            @foreach ($products as $product)
-                                <p>{{ $product->product_name }}</p>
-                            @endforeach
-                    
-                    @endif
+                    <form id="search" action="{{route('search')}}" method="get">
+                            <input id="item_name" type="text" name="item_name"><br>
+                            <!-- ソートの器 hidden -->
+                            <input type='hidden' id="sort_ordered" value='desc'>
+                            <input type='hidden' id="sort_col" value='id'>
+                            <!-- 仕様書2. 価格上限下限、在庫上限下限 -->
+                            <p>価格</p>
+                            <input type='number' id="price_up" value='1000'>
+                            <input type='number' id="price_down" value='0'><br>
+                            <p>在庫</p>
+                            <input type='number' id="stock_up" value='10'>
+                            <input type='number' id="stock_down" value='0'>
+                            <!-- submit切る? -->
+                            <button id="ajax_search" type="button">検索</button>
+                            <!-- ↓　ステップ８　ソート機能 -->
+                            <button id="ajax_sort" type="button">ソート</button>
+                    <!-- ステップ８ ajax 検索項目 -->
+                    <table border="1">
+                        <caption>検索結果</caption>
+                        <thead id="endsearch">
+                            <tr>
+                                <!-- ステップ８　aタグ 非同期処理 -->
+                                <th><a href="#" id="ajax_1">商品名</a></th>
+                                <th><a href="#" id="ajax_2">価格</a></th>
+                                <th><a href="#" id="ajax_3">在庫数</a></th>
+                                <th>削除</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody id="ajax_table">
+                           
+                        </tbody>
+                    </table>
+
                     </form>
                     
-
-                    <a href ="{{route('create')}}">新規登録</a>
+                    <a href ="{{route('create')}}" >新規登録</a>
                   
                 </div>
             </div>
@@ -78,3 +99,16 @@
     @endsection
 
                        
+
+
+
+    <!-- @if(session('products'))
+                            @foreach (session('products') as $product)
+                                <p>{{ $product->product_name }}</p>
+                            @endforeach
+                    @else
+                            @foreach ($products as $product)
+                                <p>{{ $product->product_name }}</p>
+                            @endforeach
+                    
+                    @endif -->
